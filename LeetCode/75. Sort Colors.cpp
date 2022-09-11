@@ -1,17 +1,20 @@
 class Solution {
 public:
     void sortColors(vector<int>& nums) {
-        int frq[] = {0, 0, 0};
+        int s = 0;
+        int e = nums.size()-1;
 
-        for (int i = 0; i < nums.size(); i++) {
-            frq[nums[i]]++;
-            nums[i] = 1;
+        for (int i = s; i <= e; i++) {
+            if (nums[i] == 2) {
+                while(nums[e] == 2 and e > i)
+                    e--;
+                swap(nums[i], nums[e]);
+            }
+            if (nums[i] == 0) {
+                while(nums[s] == 0 and s < i)
+                    s++;
+                swap(nums[i], nums[s]);
+            }
         }
-
-        for (int i = 0; i < frq[0]; i++)
-            nums[i] = 0;
-
-        for (int j = nums.size()-1, i = 0; i < frq[2]; i++)
-            nums[j-i] = 2;
     }
 };
